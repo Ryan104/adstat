@@ -15,6 +15,11 @@ export class AdReportLoader {
   private repo: Repository<AdvertiserReport>;
   private PATH_TO_REPORTS: string = "import-data/test-data/";
 
+  /**
+   * Load all newly available reports into the db
+   *
+   * @return the number of reports loaded
+   */
   async loadAvailableReports(): Promise<number> {
     let count = 0;
     const fileNames = await this.fetchAvailableReports();
@@ -53,23 +58,28 @@ export class AdReportLoader {
     data: { product: string; clicks: number }[],
     fileName: string
   ) {
+    const date = this.parseDateFromFileName(fileName);
     const promises = data.map(async reportData => {
       const product = await getRepository(Product).findOne({
         name: reportData.product
       });
-      if (!product) {
-        return null;
-      }
+
+      if (!product) return null;
+
       const report = new AdvertiserReport();
       report.product = product;
       report.advertiserSource = this.advertiserSource;
       report.clicks = reportData.clicks;
-      report.reportDate = this.parseDateFromFileName(fileName);
+      report.reportDate = date;
       report.fileName = fileName;
       return report;
     });
-    const resolved = await Promise.all(promises);
-    const reports = resolved.filter(rep => !!rep) as AdvertiserReport[];
+
+    // filter any null reports that didn't match a product
+    const reports = (await Promise.all(promises)).filter(
+      rep => !!rep
+    ) as AdvertiserReport[];
+
     return this.repo.save(reports);
   }
 
@@ -79,13 +89,11 @@ export class AdReportLoader {
     const month = +match[1] - 1;
     const day = +match[2];
     const year = +match[3];
-    console.log(month, day, year);
-    return new Date(year, month, day); //.toISOString();
+    return new Date(year, month, day);
   }
 
   private async fetchReportData(filename: string) {
     const data = await parseFromCsv(this.PATH_TO_REPORTS + filename);
-    console.log(data);
     return data;
   }
 
