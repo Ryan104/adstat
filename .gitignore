@@ -1,5 +1,5 @@
 data/*
-*/node_modules/
+node_modules/
 .bash_history
 .config
 .yarnrc
@@ -7,3 +7,9 @@ data/*
 .npm
 .cache
 .env
+.idea/
+.vscode/
+build/
+tmp/
+temp/
+dist/
