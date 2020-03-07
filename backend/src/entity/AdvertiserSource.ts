@@ -3,8 +3,10 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
+  OneToMany
 } from "typeorm";
+import { AdvertiserReport } from "./AdvertiserReport";
 
 @Entity()
 export class AdvertiserSource {
@@ -13,6 +15,12 @@ export class AdvertiserSource {
 
   @Column({ unique: true })
   name!: string;
+
+  @OneToMany(
+    type => AdvertiserReport,
+    advertiserReport => advertiserReport.advertiserSource
+  )
+  advertiserReports!: AdvertiserReport[];
 
   @CreateDateColumn()
   createdAt!: string;
