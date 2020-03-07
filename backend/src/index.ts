@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import express from "express";
+import { advertiserSourceRouter, productRouter } from "./routes";
 
 createConnection()
   .then(async connection => {
@@ -11,6 +12,11 @@ createConnection()
     app.get("/", (req, res) => {
       res.send("Hellooo world!");
     });
+
+    app.use(express.json());
+
+    app.use("/api/advertiser", advertiserSourceRouter);
+    app.use("/api/product", productRouter);
 
     // start the Express server
     app.listen(port, () => {
