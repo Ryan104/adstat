@@ -3,7 +3,6 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn,
   ManyToOne
 } from "typeorm";
 import { Product } from "./Product";
@@ -14,11 +13,14 @@ export class AdvertiserReport {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ type: "date" })
-  reportDate!: string;
+  @Column("timestamp")
+  reportDate!: Date;
 
   @Column({ type: "int" })
   clicks!: number;
+
+  @Column()
+  fileName!: string;
 
   @ManyToOne(
     type => Product,
