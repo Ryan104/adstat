@@ -1,0 +1,26 @@
+version: "3"
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8080:3000"
+    volumes:
+      - ./backend:/home/node
+  frontend:
+    build: ./frontend
+    ports:
+      - "8081:3000"
+    volumes:
+      - "./frontend:/home/node"
+    environment:
+      - NODE_ENV=development
+  db:
+    image: mysql:5.7
+    volumes:
+      - "./data:/var/lib/mysql"
+    restart: always
+    ports:
+      - 3308:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root

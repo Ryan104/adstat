@@ -1,0 +1,9 @@
+data/*
+*/node_modules/
+.bash_history
+.config
+.yarnrc
+.yarn
+.npm
+.cache
+.env
