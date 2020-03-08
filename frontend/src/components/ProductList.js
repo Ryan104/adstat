@@ -18,14 +18,28 @@ const useStyles = makeStyles(theme => ({
   },
   item: {
     borderBottom: "1px solid #ccc"
+  },
+  selectedItem: {
+    backgroundColor: theme.palette.primary.light
   }
 }));
 
-export const ProductList = ({ products }) => {
+export const ProductList = ({ products, selectedId, onSelect }) => {
   const classes = useStyles();
 
+  const handleSelect = id => () => {
+    onSelect(id);
+  };
+
   const productList = products.map(product => (
-    <ListItem className={classes.item} key={product.id} button>
+    <ListItem
+      className={`${classes.item} ${
+        product.id === selectedId ? classes.selectedItem : ""
+      }`}
+      key={product.id}
+      button
+      onClick={handleSelect(product.id)}
+    >
       <ListItemText primary={product.name} />
     </ListItem>
   ));
