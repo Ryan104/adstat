@@ -1,6 +1,6 @@
 import React from "react";
 
-import Container from "@material-ui/core/Container";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   BrowserRouter as Router,
@@ -11,11 +11,13 @@ import {
 import "./App.css";
 import { Typography } from "@material-ui/core";
 import { NavBar } from "./components/NavBar";
+import { ProductPage } from "./components/ProductPage";
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    height: "100vh"
   },
   content: {
     flex: 1,
@@ -27,13 +29,14 @@ function App() {
   const classes = useStyles();
   return (
     <Router>
+      <CssBaseline />
       <Redirect from="/" to="/products" />
       <div className={classes.root}>
         <NavBar />
-        <Container className={classes.content}>
+        <div className={classes.content}>
           <Switch>
             <Route exact path="/products">
-              <Typography variant="h1">products</Typography>
+              <ProductPage />
             </Route>
             <Route path="/advertisers">
               <Typography variant="h1">advertisers</Typography>
@@ -42,7 +45,7 @@ function App() {
               <Typography variant="h1">reports</Typography>
             </Route>
           </Switch>
-        </Container>
+        </div>
       </div>
     </Router>
   );
