@@ -25,6 +25,15 @@ export class Product {
   )
   advertiserReports!: AdvertiserReport[];
 
+  totalClicks?: number;
+
+  getClicks() {
+    this.totalClicks = this.advertiserReports.reduce(
+      (sum, report) => sum + report.clicks,
+      0
+    );
+  }
+
   @CreateDateColumn()
   createdAt!: string;
 
