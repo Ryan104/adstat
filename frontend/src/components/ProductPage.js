@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import axios from "axios";
 import { ProductList } from "./ProductList";
 import { SidebarLayout } from "./SidebarLayout";
+import { get as getProducts } from "../repositories/product-repository";
 
 export const ProductPage = () => {
   const [products, setProducts] = useState({ list: [], isLoading: false });
@@ -10,11 +10,9 @@ export const ProductPage = () => {
     const fetchProducts = async () => {
       setProducts({ ...products, isLoading: true });
       try {
-        const res = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/product`
-        );
-        console.log(res.data);
-        setProducts({ list: res.data, isLoading: false });
+        const productList = await getProducts();
+        console.log(productList);
+        setProducts({ list: productList, isLoading: false });
       } catch (e) {
         console.log(e);
         setProducts({ ...products, isLoading: false });
