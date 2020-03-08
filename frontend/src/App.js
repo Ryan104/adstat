@@ -12,6 +12,7 @@ import "./App.css";
 import { Typography } from "@material-ui/core";
 import { NavBar } from "./components/NavBar";
 import { ProductPage } from "./components/ProductPage";
+import { AdvertiserPage } from "./components/AdvertiserPage";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,7 +40,7 @@ function App() {
               <ProductPage />
             </Route>
             <Route path="/advertisers">
-              <Typography variant="h1">advertisers</Typography>
+              <AdvertiserPage />
             </Route>
             <Route path="/reports">
               <Typography variant="h1">reports</Typography>

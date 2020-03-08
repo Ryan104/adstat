@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import Input from "@material-ui/core/Input";
@@ -22,13 +22,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const ProductList = ({ products }) => {
-  const [search, setSearch] = useState("");
   const classes = useStyles();
+
   const productList = products.map(product => (
     <ListItem className={classes.item} key={product.id} button>
       <ListItemText primary={product.name} />
     </ListItem>
   ));
+
   return (
     <div className={classes.root}>
       <ListItem>
