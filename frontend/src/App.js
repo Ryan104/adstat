@@ -1,7 +1,9 @@
 import React from "react";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
+import teal from "@material-ui/core/colors/teal";
 import {
   BrowserRouter as Router,
   Switch,
@@ -26,28 +28,37 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const theme = createMuiTheme({
+  palette: {
+    primary: teal,
+    secondary: teal
+  }
+});
+
 function App() {
   const classes = useStyles();
   return (
     <Router>
       <CssBaseline />
       <Redirect from="/" to="/products" />
-      <div className={classes.root}>
-        <NavBar />
-        <div className={classes.content}>
-          <Switch>
-            <Route exact path="/products">
-              <ProductPage />
-            </Route>
-            <Route path="/advertisers">
-              <AdvertiserPage />
-            </Route>
-            <Route path="/reports">
-              <Typography variant="h1">reports</Typography>
-            </Route>
-          </Switch>
+      <ThemeProvider theme={theme}>
+        <div className={classes.root}>
+          <NavBar />
+          <div className={classes.content}>
+            <Switch>
+              <Route exact path="/products">
+                <ProductPage />
+              </Route>
+              <Route path="/advertisers">
+                <AdvertiserPage />
+              </Route>
+              <Route path="/reports">
+                <Typography variant="h1">reports</Typography>
+              </Route>
+            </Switch>
+          </div>
         </div>
-      </div>
+      </ThemeProvider>
     </Router>
   );
 }
