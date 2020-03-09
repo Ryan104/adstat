@@ -7,14 +7,14 @@ import { get as getAdvertisers } from "../repositories/advertiser-repository";
 export const AdvertiserPage = () => {
   const [advertisers, setAdvertisers] = useState({
     list: [],
-    isLoading: false
+    isLoading: false,
+    selectedId: null
   });
   useEffect(() => {
     const fetchAdvertisers = async () => {
       setAdvertisers({ ...advertisers, isLoading: true });
       try {
         const advertiserList = await getAdvertisers();
-        console.log(advertiserList);
         setAdvertisers({ list: advertiserList, isLoading: false });
       } catch (e) {
         console.log(e);
@@ -24,10 +24,18 @@ export const AdvertiserPage = () => {
     fetchAdvertisers();
   }, []);
 
+  const handleSelect = id => {
+    setAdvertisers({ ...advertisers, selectedId: id });
+  };
+
   const listContent = advertisers.isLoading ? (
     <CircularProgress />
   ) : (
-    <ProductList products={advertisers.list} />
+    <ProductList
+      products={advertisers.list}
+      onSelect={handleSelect}
+      selectedId={advertisers.selectedId}
+    />
   );
 
   return <SidebarLayout sideBarContent={listContent} />;

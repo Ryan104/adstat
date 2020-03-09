@@ -14,10 +14,7 @@ export class ProductController implements IBaseController {
       const product = await getRepository(Product).findOneOrFail(
         req.params.id,
         {
-          relations: [
-            "advertiserReports"
-            // "advertiserReports.advertiserSource"
-          ]
+          relations: ["advertiserReports", "advertiserReports.advertiserSource"]
         }
       );
       product.getClicks();

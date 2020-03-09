@@ -6,6 +6,7 @@ import {
   get as getProducts,
   getOne as getProduct
 } from "../repositories/product-repository";
+import { ProductDashboard } from "./ProductDashboard";
 
 export const ProductPage = () => {
   const [products, setProducts] = useState({
@@ -20,7 +21,6 @@ export const ProductPage = () => {
       setProducts({ ...products, isLoadingProductList: true });
       try {
         const productList = await getProducts();
-        console.log(productList);
         setProducts({ list: productList, isLoadingProductList: false });
       } catch (e) {
         console.log(e);
@@ -71,7 +71,7 @@ export const ProductPage = () => {
   const mainContent = products.isLoadingProduct ? (
     <CircularProgress />
   ) : products.selectedProduct ? (
-    <div>{products.selectedProduct.name}</div>
+    <ProductDashboard product={products.selectedProduct} />
   ) : null;
 
   return (
