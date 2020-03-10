@@ -32,7 +32,6 @@ export const ProductClicksAreaChart = ({ chartData, chartLines }) => {
         {areas}
         <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
         <XAxis dataKey="day" />
-
         <YAxis />
         <Tooltip />
       </AreaChart>

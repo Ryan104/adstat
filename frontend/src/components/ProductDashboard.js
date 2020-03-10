@@ -5,6 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { ProductClicksLineChart } from "./product-charts/ProductClicksLineChart";
 import { ProductClicksAreaChart } from "./product-charts/ProductClicksAreaChart";
 import { productClicksOverTime } from "../chart-data-helpers/product-clicks-over-time";
+import { productClicksPerAdvertiser } from "../chart-data-helpers/product-clicks-per-advertiser";
+import { ProductAdvertiserClicksPieChart } from "./product-charts/ProductAdvertiserClicksPieChart";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -37,9 +39,16 @@ const useStyles = makeStyles(theme => ({
 
 export const ProductDashboard = ({ product }) => {
   const classes = useStyles();
-  const { chartData, chartLines } = productClicksOverTime(
+  const { chartData, chartLines: advertiserColors } = productClicksOverTime(
     product.advertiserReports
   );
+
+  const clicksPerAdvertiser = productClicksPerAdvertiser(
+    product.advertiserReports
+  ).map(adClicks => ({
+    ...adClicks,
+    color: advertiserColors.find(c => c.name === adClicks.name).color
+  }));
 
   return (
     <Container className={classes.root} maxWidth="lg">
@@ -57,7 +66,7 @@ export const ProductDashboard = ({ product }) => {
           <Card>
             <ProductClicksAreaChart
               chartData={chartData}
-              chartLines={chartLines}
+              chartLines={advertiserColors}
             />
           </Card>
         </Grid>
@@ -65,8 +74,13 @@ export const ProductDashboard = ({ product }) => {
           <Card>
             <ProductClicksLineChart
               chartData={chartData}
-              chartLines={chartLines}
+              chartLines={advertiserColors}
             />
+          </Card>
+        </Grid>
+        <Grid item xs={12} lg={6}>
+          <Card>
+            <ProductAdvertiserClicksPieChart chartData={clicksPerAdvertiser} />
           </Card>
         </Grid>
       </Grid>

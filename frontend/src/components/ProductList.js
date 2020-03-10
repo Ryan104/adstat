@@ -20,7 +20,8 @@ const useStyles = makeStyles(theme => ({
     borderBottom: "1px solid #ccc"
   },
   selectedItem: {
-    backgroundColor: theme.palette.primary.light
+    backgroundColor: theme.palette.primary.light,
+    color: theme.palette.primary.contrastText
   }
 }));
 
