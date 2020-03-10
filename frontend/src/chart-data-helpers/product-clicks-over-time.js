@@ -1,3 +1,5 @@
+import { generateColor } from "./color-generator";
+
 const keyByDateAndAdvertiser = reports => {
   const groupedByDate = {};
   reports.forEach(report => {
@@ -34,6 +36,9 @@ export const productClicksOverTime = advertiserReports => {
 
   return {
     chartData,
-    chartLines: [...chartLines]
+    chartLines: [...chartLines].map(name => ({
+      name,
+      color: `#${generateColor()}`
+    }))
   };
 };
