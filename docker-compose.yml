@@ -10,6 +10,7 @@ services:
       - /home/node/node_modules
     depends_on:
       - "db"
+    restart: on-failure
   frontend:
     build: ./frontend
     ports:
