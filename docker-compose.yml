@@ -7,12 +7,15 @@ services:
       - "8080:3000"
     volumes:
       - ./backend:/home/node
+      - /home/node/node_modules
   frontend:
     build: ./frontend
     ports:
       - "8081:3000"
     volumes:
-      - "./frontend:/home/node"
+      - ./frontend:/home/node
+      - /home/node/node_modules
+
     environment:
       - NODE_ENV=development
   db:
