@@ -8,6 +8,8 @@ services:
     volumes:
       - ./backend:/home/node
       - /home/node/node_modules
+    depends_on:
+      - "db"
   frontend:
     build: ./frontend
     ports:
