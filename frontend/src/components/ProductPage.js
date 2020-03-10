@@ -58,6 +58,10 @@ export const ProductPage = () => {
     setProducts({ ...products, selectedId: productId });
   };
 
+  if (!products.selectedId && products.list.length) {
+    handleSelectProduct(products.list[0].id)
+  }
+
   const listContent = products.isLoadingProductList ? (
     <CircularProgress />
   ) : (

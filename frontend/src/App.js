@@ -53,7 +53,7 @@ function App() {
                 <AdvertiserPage />
               </Route>
               <Route path="/reports">
-                <Typography variant="h1">reports</Typography>
+                <Typography variant="h6">reports coming soon</Typography>
               </Route>
             </Switch>
           </div>

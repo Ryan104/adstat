@@ -38,5 +38,14 @@ export const AdvertiserPage = () => {
     />
   );
 
-  return <SidebarLayout sideBarContent={listContent} />;
+  return (
+    <SidebarLayout
+      sideBarContent={listContent}
+      primaryContent={
+        <div>
+          coming soon - see how products are performing with each advertiser
+        </div>
+      }
+    />
+  );
 };
